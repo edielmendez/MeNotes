@@ -1,12 +1,10 @@
-package mx.com.emv.menotes.presentation.ui
+package mx.com.emv.menotes.presentation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.WindowManager
-import mx.com.emv.menotes.MainActivity
 import mx.com.emv.menotes.R
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -24,6 +22,6 @@ class SplashScreenActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }, 1000)
     }
 }

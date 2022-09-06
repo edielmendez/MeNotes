@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MeNotes</string>
+    <string name="notes_fragment_title">Notes</string>
 </resources>
