@@ -1,0 +1,22 @@
+apply from: "$rootProject.projectDir/buildsystem/versionlibrary.gradle"
+def versionlibrary = ext.versionlibrary
+
+ext.versionlibrary = [
+        //BASE
+        kotlin_core_ktx : "androidx.core:core-ktx:$versionlibrary.kotlinVersion",
+        androidx_appcompat : "androidx.appcompat:appcompat:$versionlibrary.appCompatVersion",
+        google_material : "com.google.android.material:material:$versionlibrary.googleMaterialVersion",
+        androidx_constraint : "androidx.constraintlayout:constraintlayout:$versionlibrary.constraintLayout",
+        androidx_lifecycle : "androidx.lifecycle:lifecycle-viewmodel-ktx:$versionlibrary.lifecycleVersion",
+        androidx_lifecycle_livedata_ktx : "androidx.lifecycle:lifecycle-livedata-ktx:$versionlibrary.lifecycleVersion",
+        kotlinx_coroutines : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versionlibrary.coroutinesVersion",
+        retrofit2 : "com.squareup.retrofit2:retrofit:$versionlibrary.retrofitVersion",
+        gson : "com.squareup.retrofit2:converter-gson:$versionlibrary.gsonVersion",
+        fragment_ktx : "androidx.fragment:fragment-ktx:$versionlibrary.fragmentKtxVersion",
+        lottie : "com.airbnb.android:lottie:$versionlibrary.lottieVersion",
+        logging_interceptor : "com.squareup.okhttp3:logging-interceptor:$versionlibrary.okhttp3",
+        picasso : "com.squareup.picasso:picasso:$versionlibrary.picasso",
+        room : "androidx.room:room-runtime:$versionlibrary.room",
+        room_ktx : "androidx.room:room-ktx:$versionlibrary.room",
+        room_compiler : "androidx.room:room-compiler:$versionlibrary.room"
+]

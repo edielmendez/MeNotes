@@ -1,0 +1,28 @@
+apply from: "$rootProject.projectDir/buildsystem/libraries.gradle"
+def library = ext.versionlibrary
+
+dependencies {
+    implementation "${library.kotlin_core_ktx}"
+    implementation "${library.androidx_appcompat}"
+    implementation "${library.google_material}"
+    implementation "${library.androidx_constraint}"
+    //LIFECYCLE
+    implementation "${library.androidx_lifecycle}"
+    implementation "${library.androidx_lifecycle_livedata_ktx}"
+    implementation "${library.kotlinx_coroutines}"
+    //RETROFIT
+    implementation "${library.retrofit2}"
+    implementation "${library.gson}"
+    //INTERCEPTOR
+    implementation "${library.logging_interceptor}"
+    //FRAGMENTS
+    implementation "${library.fragment_ktx}"
+    //LOTTIE
+    implementation "${library.lottie}"
+    //PICASSO
+    implementation "${library.picasso}"
+    //ROOM
+    implementation "${library.room}"
+    implementation "${library.room_ktx}"
+    kapt "${library.room_compiler}"
+}
