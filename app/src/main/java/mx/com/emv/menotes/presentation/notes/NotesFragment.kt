@@ -3,6 +3,7 @@ package mx.com.emv.menotes.presentation.notes
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,12 +41,40 @@ class NotesFragment : Fragment() {
         /*StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL).apply {
             binding.notesList.layoutManager = this
         }*/
+        setUpToolBar()
+        setUpListeners()
         binding.notesList.adapter = NoteAdapter(MockData.fakeNotes){
 
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    private fun setUpListeners() {
+        binding.btnAddNote.setOnClickListener {
+            parentFragmentManager.commit {
+
+            }
+        }
+    }
+
+    private fun setUpToolBar() {
+        binding.toolbar.title = resources.getString(R.string.notes_fragment_title)
+        binding.toolbar.inflateMenu(R.menu.notes_menu)
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.app_bar_search -> {
+                    filterNotes()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun filterNotes() {
+        // TODO: Filters notes
+    }
+
+    /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.notes_menu, menu)
     }
@@ -61,7 +90,7 @@ class NotesFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
+    }*/
 
     companion object {
         val TAG = NotesFragment::class.java.simpleName

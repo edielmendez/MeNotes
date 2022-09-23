@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        setSupportActionBar(binding.materialToolbar)
-        supportActionBar?.title = resources.getString(R.string.notes_fragment_title)
+        //setSupportActionBar(binding.materialToolbar)
+        //supportActionBar?.title = resources.getString(R.string.notes_fragment_title)
     }
 }
