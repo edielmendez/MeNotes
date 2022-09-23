@@ -3,7 +3,12 @@ package mx.com.emv.menotes.presentation.notes
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import mx.com.emv.menotes.R
+import mx.com.emv.menotes.data.MockData
 import mx.com.emv.menotes.databinding.NotesFragmentBinding
 
 class NotesFragment : Fragment() {
@@ -24,7 +29,20 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //binding.materialToolbar.title = "Notes"
+        GridLayoutManager(
+            requireContext(),
+            2,
+            RecyclerView.VERTICAL,
+            false
+        ).apply {
+            binding.notesList.layoutManager = this
+        }
+        /*StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL).apply {
+            binding.notesList.layoutManager = this
+        }*/
+        binding.notesList.adapter = NoteAdapter(MockData.fakeNotes){
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

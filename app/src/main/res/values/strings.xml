@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MeNotes</string>
     <string name="notes_fragment_title">Notes</string>
+    <string name="mock_note_title">Este es el título de una nota</string>
+    <string name="mock_note_desc">Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final.</string>
 </resources>
