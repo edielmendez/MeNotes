@@ -3,4 +3,8 @@
     <string name="notes_fragment_title">Mis Notas</string>
     <string name="mock_note_title">Este es el título de una nota</string>
     <string name="mock_note_desc">Lorem ipsum es el texto que se usa habitualmente en diseño gráfico en demostraciones de tipografías o de borradores de diseño para probar el diseño visual antes de insertar el texto final.</string>
+    <string name="title_note_label">Título</string>
+    <string name="content_note_label">Contenido</string>
+    <string name="new_note_label">Nueva nota</string>
+    <string name="edit_note_label">Editar nota</string>
 </resources>

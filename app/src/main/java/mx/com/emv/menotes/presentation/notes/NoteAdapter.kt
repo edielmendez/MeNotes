@@ -28,6 +28,9 @@ class NoteAdapter(
         fun bind(note: Note) {
             viewBinding.tvTitle.text = note.title
             viewBinding.tvDescription.text = note.description.substring(0, note.description.length / 2) + "..."
+            viewBinding.root.setOnClickListener {
+                itemCallback(note)
+            }
         }
     }
 

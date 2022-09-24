@@ -5,12 +5,11 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import mx.com.emv.menotes.R
 import mx.com.emv.menotes.data.MockData
 import mx.com.emv.menotes.databinding.NotesFragmentBinding
+import mx.com.emv.menotes.presentation.addnote.AddFragment
 
 class NotesFragment : Fragment() {
     private var _binding: NotesFragmentBinding? = null
@@ -44,15 +43,20 @@ class NotesFragment : Fragment() {
         setUpToolBar()
         setUpListeners()
         binding.notesList.adapter = NoteAdapter(MockData.fakeNotes){
+            goToEditNote(it.title)
+        }
+    }
 
+    private fun goToEditNote(id: String?) {
+        parentFragmentManager.commit {
+            replace(R.id.fragmentContainerView, AddFragment.newInstance(id), AddFragment.TAG)
+            addToBackStack(AddFragment.TAG)
         }
     }
 
     private fun setUpListeners() {
         binding.btnAddNote.setOnClickListener {
-            parentFragmentManager.commit {
-
-            }
+            goToEditNote(null)
         }
     }
 
