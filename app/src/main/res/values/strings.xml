@@ -7,4 +7,5 @@
     <string name="content_note_label">Contenido</string>
     <string name="new_note_label">Nueva nota</string>
     <string name="edit_note_label">Editar nota</string>
+    <string name="confirm_delete_note_label">¿Esta seguro de eliminar la nota?</string>
 </resources>

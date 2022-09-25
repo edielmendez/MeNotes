@@ -13,7 +13,7 @@ import mx.com.emv.menotes.R
 import mx.com.emv.menotes.data.MockData
 import mx.com.emv.menotes.data.Note
 import mx.com.emv.menotes.databinding.NotesFragmentBinding
-import mx.com.emv.menotes.presentation.addnote.AddFragment
+import mx.com.emv.menotes.presentation.addnote.AddNoteFragment
 
 class NotesFragment : Fragment() {
     private var _binding: NotesFragmentBinding? = null
@@ -109,8 +109,8 @@ class NotesFragment : Fragment() {
 
     private fun goToEditNote(id: String?) {
         parentFragmentManager.commit {
-            replace(R.id.fragmentContainerView, AddFragment.newInstance(id), AddFragment.TAG)
-            addToBackStack(AddFragment.TAG)
+            replace(R.id.fragmentContainerView, AddNoteFragment.newInstance(id), AddNoteFragment.TAG)
+            addToBackStack(AddNoteFragment.TAG)
         }
     }
 
