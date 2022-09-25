@@ -1,19 +1,24 @@
 package mx.com.emv.menotes.presentation.notes
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import mx.com.emv.menotes.R
 import mx.com.emv.menotes.data.MockData
+import mx.com.emv.menotes.data.Note
 import mx.com.emv.menotes.databinding.NotesFragmentBinding
 import mx.com.emv.menotes.presentation.addnote.AddFragment
 
 class NotesFragment : Fragment() {
     private var _binding: NotesFragmentBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: NotesViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -42,7 +47,62 @@ class NotesFragment : Fragment() {
         }*/
         setUpToolBar()
         setUpListeners()
-        binding.notesList.adapter = NoteAdapter(MockData.fakeNotes){
+        setUpViews()
+        setUpObservers()
+        viewModel.fetchNotes()
+    }
+
+    private fun setUpObservers() {
+        viewModel.uiState.observe(viewLifecycleOwner){
+            when(it){
+                is NotesUIState.Loading -> {
+                    showLoader(it.value)
+                }
+                is NotesUIState.Empty -> {
+                }
+                is NotesUIState.Success -> {
+                    updateData(it.notes)
+                }
+                is NotesUIState.Error -> {
+                    showDialogError(it.error)
+                }
+            }
+        }
+    }
+
+    private fun showDialogError(error: String) {
+        val alertDialog: AlertDialog? = activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setPositiveButton("OK",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // User clicked OK button
+                    })
+                setNegativeButton("CANCEL",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        // User cancelled the dialog
+                    })
+            }
+            builder.setTitle("Mensaje")
+            builder.setMessage(error)
+            // Create the AlertDialog
+            builder.create()
+        }
+
+        alertDialog?.show()
+
+    }
+
+    private fun updateData(notes: List<Note>) {
+        ((binding.notesList.adapter) as? NoteAdapter)?.update(notes)
+    }
+
+    private fun showLoader(b: Boolean) {
+        binding.progressBar.visibility = if(b) View.VISIBLE else View.GONE
+    }
+
+    private fun setUpViews() {
+        binding.notesList.adapter = NoteAdapter(emptyList()){
             goToEditNote(it.title)
         }
     }
