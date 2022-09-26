@@ -11,13 +11,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import mx.com.emv.menotes.R
 import mx.com.emv.menotes.data.Note
+import mx.com.emv.menotes.data.local.repository.NoteLocalDataSource
 import mx.com.emv.menotes.databinding.NotesFragmentBinding
+import mx.com.emv.menotes.di.Injector
 import mx.com.emv.menotes.presentation.addnote.AddNoteFragment
+import mx.com.emv.menotes.presentation.ext.createFactory
 
 class NotesFragment : Fragment() {
     private var _binding: NotesFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: NotesViewModel by viewModels()
+    //private val viewModel: NotesViewModel by viewModels()
+    private val viewModel by viewModels<NotesViewModel> {
+        NotesViewModel( Injector.provideDataSource() ).createFactory()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -58,8 +64,10 @@ class NotesFragment : Fragment() {
                     showLoader(it.value)
                 }
                 is NotesUIState.Empty -> {
+                    binding.tvWithoutNotes.visibility = View.VISIBLE
                 }
                 is NotesUIState.Success -> {
+                    binding.tvWithoutNotes.visibility = View.GONE
                     updateData(it.notes)
                 }
                 is NotesUIState.Error -> {
