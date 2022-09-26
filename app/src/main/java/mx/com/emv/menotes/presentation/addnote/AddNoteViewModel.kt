@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import mx.com.emv.menotes.data.MockData
 import mx.com.emv.menotes.data.Note
 
 class AddNoteViewModel: ViewModel() {
@@ -27,5 +28,14 @@ class AddNoteViewModel: ViewModel() {
         //Delete note from DB
         _uiState.value = AddNoteUIState.Loading(false)
         _uiState.value = AddNoteUIState.Success(message = "Nota eliminada")
+    }
+
+    fun getNote(id: Int){
+        _uiState.value = AddNoteUIState.Loading(true)
+        // TODO: Fetch from DB
+        _uiState.value = AddNoteUIState.Loading(false)
+        MockData.fakeNotes.find { it.id == id }?.let {
+            _uiState.value = AddNoteUIState.ObtainedNote(it)
+        }
     }
 }

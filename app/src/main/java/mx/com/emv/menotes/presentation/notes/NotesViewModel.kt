@@ -15,7 +15,7 @@ class NotesViewModel: ViewModel() {
     fun fetchNotes(){
         viewModelScope.launch {
             _uiState.value = NotesUIState.Loading(true)
-            delay(3000)
+            //delay(3000)
             _uiState.value = NotesUIState.Loading(false)
             //_uiState.value = NotesUIState.Error("Mensaje de error")
             _uiState.value = NotesUIState.Success(MockData.fakeNotes)

@@ -18,14 +18,14 @@ import mx.com.emv.menotes.presentation.notes.NotesUIState
 private const val NOTE_ID = "noteId"
 
 class AddNoteFragment : Fragment() {
-    private var noteId: String? = null
+    private var noteId: Int = 0
     private var _binding: AddNoteFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AddNoteViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            noteId = it.getString(NOTE_ID)
+            noteId = it.getInt(NOTE_ID)
         }
     }
 
@@ -41,11 +41,17 @@ class AddNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpToolBar()
         setUpObservers()
+        if (noteId != 0){ getNote(noteId) }
+        //noteId?.let { getNote(it) }
+    }
+
+    private fun getNote(id: Int) {
+        viewModel.getNote(id)
     }
 
     private fun setUpToolBar() {
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        if(noteId != null){
+        if(noteId != 0){
             binding.toolbar.title = resources.getString(R.string.edit_note_label)
         }else{
             binding.toolbar.title = resources.getString(R.string.new_note_label)
@@ -71,7 +77,7 @@ class AddNoteFragment : Fragment() {
     }
 
     private fun deleteNote() {
-        showConfirmDialog()
+        if(noteId != 0) showConfirmDialog()
     }
 
     private fun showConfirmDialog() {
@@ -105,7 +111,7 @@ class AddNoteFragment : Fragment() {
             return
         }
         //val id = noteId?.let { it.toInt() } ?: 0
-        viewModel.saveNote(Note(title = title, description = desc, importance = Importance.HIGH.value))
+        viewModel.saveNote(Note(id = noteId, title = title, description = desc, importance = Importance.HIGH.value))
     }
 
     private fun setUpObservers() {
@@ -121,8 +127,16 @@ class AddNoteFragment : Fragment() {
                 is AddNoteUIState.Error -> {
                     showDialogError(it.error)
                 }
+                is AddNoteUIState.ObtainedNote -> {
+                    updateUI(it.note)
+                }
             }
         }
+    }
+
+    private fun updateUI(note: Note) {
+        binding.inputTitle.setText(note.title)
+        binding.inputDesc.setText(note.description)
     }
 
     private fun showLoader(b: Boolean) {
@@ -152,10 +166,10 @@ class AddNoteFragment : Fragment() {
     companion object {
         val TAG = AddNoteFragment::class.java.simpleName
         @JvmStatic
-        fun newInstance(noteId: String?) =
+        fun newInstance(noteId: Int?) =
             AddNoteFragment().apply {
                 arguments = Bundle().apply {
-                    putString(NOTE_ID, noteId)
+                    putInt(NOTE_ID, noteId ?: 0)
                 }
             }
     }

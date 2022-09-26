@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import mx.com.emv.menotes.R
-import mx.com.emv.menotes.data.MockData
 import mx.com.emv.menotes.data.Note
 import mx.com.emv.menotes.databinding.NotesFragmentBinding
 import mx.com.emv.menotes.presentation.addnote.AddNoteFragment
@@ -74,14 +73,12 @@ class NotesFragment : Fragment() {
         val alertDialog: AlertDialog? = activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
-                setPositiveButton("OK",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // User clicked OK button
-                    })
-                setNegativeButton("CANCEL",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // User cancelled the dialog
-                    })
+                setPositiveButton("OK") { dialog, id ->
+                    // User clicked OK button
+                }
+                setNegativeButton("CANCEL") { dialog, id ->
+                    // User cancelled the dialog
+                }
             }
             builder.setTitle("Mensaje")
             builder.setMessage(error)
@@ -103,11 +100,11 @@ class NotesFragment : Fragment() {
 
     private fun setUpViews() {
         binding.notesList.adapter = NoteAdapter(emptyList()){
-            goToEditNote(it.title)
+            goToEditNote(it.id)
         }
     }
 
-    private fun goToEditNote(id: String?) {
+    private fun goToEditNote(id: Int?) {
         parentFragmentManager.commit {
             replace(R.id.fragmentContainerView, AddNoteFragment.newInstance(id), AddNoteFragment.TAG)
             addToBackStack(AddNoteFragment.TAG)
