@@ -30,7 +30,13 @@ class NoteLocalDataSource(context: Context): NoteLocalRepository {
     }
 
     override suspend fun saveNote(note: Note) = withContext(Dispatchers.IO) {
-        dao.insertNote(NoteDTO(title = note.title, description = note.description, importance = note.importance))
+        if(note.id != 0){
+            val noteDto = NoteDTO(title = note.title, description = note.description, importance = note.importance)
+            noteDto.id = note.id
+            dao.updateNote(noteDto)
+        }else{
+            dao.insertNote(NoteDTO(title = note.title, description = note.description, importance = note.importance))
+        }
     }
 
     override suspend fun getNote(id: Int) = withContext(Dispatchers.IO)  {
@@ -44,7 +50,7 @@ class NoteLocalDataSource(context: Context): NoteLocalRepository {
     override suspend fun deleteNote(note: Note) = withContext(Dispatchers.IO) {
         val noteDto = NoteDTO(title = note.title, description = note.description, importance = note.importance)
         noteDto.id = note.id
-        dao.insertNote(noteDto)
+        dao.deleteNote(noteDto)
     }
 
 }

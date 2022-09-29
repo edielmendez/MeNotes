@@ -33,10 +33,19 @@ class AddNoteViewModel(private val repository: NoteLocalRepository): ViewModel()
 
     fun getNote(id: Int){
         _uiState.value = AddNoteUIState.Loading(true)
-        // TODO: Fetch from DB
-        _uiState.value = AddNoteUIState.Loading(false)
-        MockData.fakeNotes.find { it.id == id }?.let {
-            _uiState.value = AddNoteUIState.ObtainedNote(it)
+        //Get note from db
+        viewModelScope.launch {
+            val response = repository.getNote(id = id)
+            _uiState.value = AddNoteUIState.Loading(false)
+            response.onSuccess {
+                _uiState.value = AddNoteUIState.ObtainedNote(it)
+            }
+            response.onFailure {
+                _uiState.value = AddNoteUIState.Error(error = it.message.toString())
+            }
         }
+        /*MockData.fakeNotes.find { it.id == id }?.let {
+            _uiState.value = AddNoteUIState.ObtainedNote(it)
+        }*/
     }
 }
