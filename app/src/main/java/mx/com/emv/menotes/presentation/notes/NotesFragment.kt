@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import mx.com.emv.menotes.R
 import mx.com.emv.menotes.data.Note
 import mx.com.emv.menotes.data.local.repository.NoteLocalDataSource
@@ -39,17 +41,17 @@ class NotesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        GridLayoutManager(
+        /*GridLayoutManager(
             requireContext(),
             2,
             RecyclerView.VERTICAL,
             false
         ).apply {
             binding.notesList.layoutManager = this
-        }
-        /*StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL).apply {
-            binding.notesList.layoutManager = this
         }*/
+        StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL).apply {
+            binding.notesList.layoutManager = this
+        }
         setUpToolBar()
         setUpListeners()
         setUpViews()

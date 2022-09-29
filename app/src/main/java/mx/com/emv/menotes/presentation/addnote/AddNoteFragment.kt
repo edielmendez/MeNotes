@@ -13,7 +13,10 @@ import mx.com.emv.menotes.R
 import mx.com.emv.menotes.data.Importance
 import mx.com.emv.menotes.data.Note
 import mx.com.emv.menotes.databinding.AddNoteFragmentBinding
+import mx.com.emv.menotes.di.Injector
+import mx.com.emv.menotes.presentation.ext.createFactory
 import mx.com.emv.menotes.presentation.notes.NotesUIState
+import mx.com.emv.menotes.presentation.notes.NotesViewModel
 
 private const val NOTE_ID = "noteId"
 
@@ -21,7 +24,10 @@ class AddNoteFragment : Fragment() {
     private var noteId: Int = 0
     private var _binding: AddNoteFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AddNoteViewModel by viewModels()
+    //private val viewModel: AddNoteViewModel by viewModels()
+    private val viewModel by viewModels<AddNoteViewModel> {
+        AddNoteViewModel( Injector.provideDataSource() ).createFactory()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

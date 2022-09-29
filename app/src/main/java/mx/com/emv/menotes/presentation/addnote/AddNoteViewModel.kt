@@ -8,16 +8,17 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mx.com.emv.menotes.data.MockData
 import mx.com.emv.menotes.data.Note
+import mx.com.emv.menotes.data.local.repository.NoteLocalRepository
 
-class AddNoteViewModel: ViewModel() {
+class AddNoteViewModel(private val repository: NoteLocalRepository): ViewModel() {
     private val _uiState = MutableLiveData<AddNoteUIState>()
     val uiState: LiveData<AddNoteUIState> = _uiState
 
-    fun saveNote(note: Note?){
+    fun saveNote(note: Note){
         viewModelScope.launch {
             _uiState.value = AddNoteUIState.Loading(true)
             //save information to db
-            delay(2000)
+            repository.saveNote(note)
             _uiState.value = AddNoteUIState.Loading(false)
             _uiState.value = AddNoteUIState.Success(message = "Nota agregada")
         }
