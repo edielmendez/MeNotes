@@ -27,8 +27,11 @@ class AddNoteViewModel(private val repository: NoteLocalRepository): ViewModel()
     fun deleteNote(id: Int){
         _uiState.value = AddNoteUIState.Loading(true)
         //Delete note from DB
-        _uiState.value = AddNoteUIState.Loading(false)
-        _uiState.value = AddNoteUIState.Success(message = "Nota eliminada")
+        viewModelScope.launch {
+            repository.deleteNote(id)
+            _uiState.value = AddNoteUIState.Loading(false)
+            _uiState.value = AddNoteUIState.Success(message = "Nota eliminada")
+        }
     }
 
     fun getNote(id: Int){

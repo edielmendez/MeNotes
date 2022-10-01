@@ -91,7 +91,7 @@ class AddNoteFragment : Fragment() {
             val builder = AlertDialog.Builder(it)
             builder.apply {
                 setPositiveButton("ELIMINAR") { dialog, id ->
-                    viewModel.deleteNote(0)
+                    viewModel.deleteNote(noteId)
                 }
                 setNegativeButton("CANCELAR"){ dialog, id ->
                     dialog.dismiss()

@@ -47,10 +47,8 @@ class NoteLocalDataSource(context: Context): NoteLocalRepository {
         }
     }
 
-    override suspend fun deleteNote(note: Note) = withContext(Dispatchers.IO) {
-        val noteDto = NoteDTO(title = note.title, description = note.description, importance = note.importance)
-        noteDto.id = note.id
-        dao.deleteNote(noteDto)
+    override suspend fun deleteNote(id: Int) = withContext(Dispatchers.IO) {
+        dao.deleteNote(id)
     }
 
 }
