@@ -51,4 +51,15 @@ class NoteLocalDataSource(context: Context): NoteLocalRepository {
         dao.deleteNote(id)
     }
 
+    override suspend fun getByRaw(word: String) = withContext(Dispatchers.IO) {
+        try {
+            val notes = dao.getByRaw(word = word).map {
+                it.toNote()
+            }
+            Result.success(notes)
+        }catch (exception: Exception){
+            Result.failure(exception)
+        }
+    }
+
 }

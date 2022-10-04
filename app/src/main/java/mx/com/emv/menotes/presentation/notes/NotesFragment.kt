@@ -152,9 +152,11 @@ class NotesFragment : Fragment() {
 
     private fun filterNotes(wordToSearch: String){
         if(wordToSearch.isNullOrEmpty()){
-            ((binding.notesList.adapter) as? NoteAdapter)?.clearFilter()
+            //((binding.notesList.adapter) as? NoteAdapter)?.clearFilter()
+            viewModel.fetchNotes()
         }else{
-            ((binding.notesList.adapter) as? NoteAdapter)?.filter(wordToSearch)
+            viewModel.filterNotes(wordToSearch = wordToSearch)
+            //((binding.notesList.adapter) as? NoteAdapter)?.filter(wordToSearch)
         }
     }
 

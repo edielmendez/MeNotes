@@ -7,4 +7,5 @@ interface NoteLocalRepository {
     suspend fun saveNote(note: Note)
     suspend fun getNote(id: Int): Result<Note>
     suspend fun deleteNote(id: Int)
+    suspend fun getByRaw(word: String): Result<List<Note>>
 }
