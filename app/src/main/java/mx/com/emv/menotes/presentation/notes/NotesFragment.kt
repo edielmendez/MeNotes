@@ -1,19 +1,16 @@
 package mx.com.emv.menotes.presentation.notes
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import mx.com.emv.menotes.R
 import mx.com.emv.menotes.data.Note
-import mx.com.emv.menotes.data.local.repository.NoteLocalDataSource
 import mx.com.emv.menotes.databinding.NotesFragmentBinding
 import mx.com.emv.menotes.di.Injector
 import mx.com.emv.menotes.presentation.addnote.AddNoteFragment
@@ -133,16 +130,32 @@ class NotesFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.app_bar_search -> {
-                    filterNotes()
+                    //filterNotes()
                     true
                 }
                 else -> false
             }
         }
+        val search = binding.toolbar.menu.findItem(R.id.app_bar_search)
+        val searchView = search.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterNotes(newText ?: "")
+                return true
+            }
+        })
     }
 
-    private fun filterNotes() {
-        // TODO: Filters notes
+    private fun filterNotes(wordToSearch: String){
+        if(wordToSearch.isNullOrEmpty()){
+            ((binding.notesList.adapter) as? NoteAdapter)?.clearFilter()
+        }else{
+            ((binding.notesList.adapter) as? NoteAdapter)?.filter(wordToSearch)
+        }
     }
 
     /*override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
