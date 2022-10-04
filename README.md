@@ -20,7 +20,7 @@ MeNotes, una aplicación completa de notas, implementada en Kotlin al 100% utili
 - Picasso
 - Room
 
-#Dependencias
+# Dependencias
 - kotlinVersion : 1.7.0,
 - appCompatVersion : 1.3.0,
 - googleMaterialVersion : 1.4.0,
@@ -47,7 +47,7 @@ MeNotes, una aplicación completa de notas, implementada en Kotlin al 100% utili
 
 <table>
   <tr>
-     <td>Editar bota</td>
+     <td>Editar nota</td>
      <td>Eliminar nota</td>
      <td>Filtrar notas</td>
   </tr>
