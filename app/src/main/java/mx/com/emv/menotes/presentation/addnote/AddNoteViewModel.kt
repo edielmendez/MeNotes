@@ -12,26 +12,6 @@ class AddNoteViewModel(private val repository: NoteRepository): ViewModel() {
     private val _uiState = MutableLiveData<AddNoteUIState>()
     val uiState: LiveData<AddNoteUIState> = _uiState
 
-    fun saveNote(note: Note){
-        viewModelScope.launch {
-            _uiState.value = AddNoteUIState.Loading(true)
-            //save information to db
-            repository.saveNote(note)
-            _uiState.value = AddNoteUIState.Loading(false)
-            _uiState.value = AddNoteUIState.Success(message = "Nota agregada")
-        }
-    }
-
-    fun deleteNote(id: Int){
-        _uiState.value = AddNoteUIState.Loading(true)
-        //Delete note from DB
-        viewModelScope.launch {
-            repository.deleteNote(id)
-            _uiState.value = AddNoteUIState.Loading(false)
-            _uiState.value = AddNoteUIState.Success(message = "Nota eliminada")
-        }
-    }
-
     fun getNote(id: Int){
         _uiState.value = AddNoteUIState.Loading(true)
         //Get note from db

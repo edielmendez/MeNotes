@@ -45,6 +45,7 @@
                     android:id="@+id/inputTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:textStyle="bold"
                     />
 
@@ -62,6 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
+                    android:enabled="false"
                     android:textColor="@color/color_secondary"
                     />
 
