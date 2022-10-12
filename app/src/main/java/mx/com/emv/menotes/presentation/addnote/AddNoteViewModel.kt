@@ -4,13 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import mx.com.emv.menotes.data.MockData
 import mx.com.emv.menotes.data.Note
-import mx.com.emv.menotes.data.local.repository.NoteLocalRepository
+import mx.com.emv.menotes.data.remote.repository.NoteRepository
 
-class AddNoteViewModel(private val repository: NoteLocalRepository): ViewModel() {
+class AddNoteViewModel(private val repository: NoteRepository): ViewModel() {
     private val _uiState = MutableLiveData<AddNoteUIState>()
     val uiState: LiveData<AddNoteUIState> = _uiState
 
@@ -47,8 +45,5 @@ class AddNoteViewModel(private val repository: NoteLocalRepository): ViewModel()
                 _uiState.value = AddNoteUIState.Error(error = it.message.toString())
             }
         }
-        /*MockData.fakeNotes.find { it.id == id }?.let {
-            _uiState.value = AddNoteUIState.ObtainedNote(it)
-        }*/
     }
 }

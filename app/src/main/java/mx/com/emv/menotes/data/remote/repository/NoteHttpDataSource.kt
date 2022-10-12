@@ -4,13 +4,13 @@ import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mx.com.emv.menotes.data.Note
-import mx.com.emv.menotes.data.local.repository.NoteLocalRepository
+import mx.com.emv.menotes.data.remote.repository.NoteRepository
 import mx.com.emv.menotes.data.remote.service.NotesApiClient
 import okhttp3.Dispatcher
 
 class NoteHttpDataSource(
     private val serviceApi: NotesApiClient.ServiceApi
-): NoteLocalRepository {
+): NoteRepository {
     override suspend fun getAll() = withContext(Dispatchers.IO) {
         Log.v("NotesViewModel", "NoteHttpDataSource getAll")
         try {
