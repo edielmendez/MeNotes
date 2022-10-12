@@ -1,6 +1,7 @@
 package mx.com.emv.menotes.data.local.repository
 
 import android.content.Context
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mx.com.emv.menotes.data.Note
@@ -19,6 +20,7 @@ class NoteLocalDataSource(context: Context): NoteLocalRepository {
     }
 
     override suspend fun getAll() = withContext(Dispatchers.IO) {
+        Log.v("NotesViewModel", "NoteLocalDataSource getAll")
         try {
             val notes = dao.getAll().map {
                 it.toNote()

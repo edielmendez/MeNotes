@@ -14,9 +14,14 @@ class NotesViewModel(private val repository: NoteLocalRepository): ViewModel() {
     private val _uiState = MutableLiveData<NotesUIState>()
     val uiState: LiveData<NotesUIState> = _uiState
 
+    init {
+        fetchNotes()
+    }
+
     fun fetchNotes(){
         viewModelScope.launch {
             _uiState.value = NotesUIState.Loading(true)
+            Log.v("NotesViewModel", "fetchNotes")
             val result = repository.getAll()
             _uiState.value = NotesUIState.Loading(false)
             result.onSuccess {
