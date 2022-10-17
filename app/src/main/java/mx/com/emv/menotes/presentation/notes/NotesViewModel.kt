@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mx.com.emv.menotes.data.remote.repository.NoteRepository
 
@@ -19,6 +20,7 @@ class NotesViewModel(private val repository: NoteRepository): ViewModel() {
         viewModelScope.launch {
             _uiState.value = NotesUIState.Loading(true)
             val result = repository.getAll()
+            delay(3000)
             _uiState.value = NotesUIState.Loading(false)
             result.onSuccess {
                 if (it.isNotEmpty()){

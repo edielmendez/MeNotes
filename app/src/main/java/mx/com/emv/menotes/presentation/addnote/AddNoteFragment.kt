@@ -12,11 +12,12 @@ import mx.com.emv.menotes.R
 import mx.com.emv.menotes.data.Note
 import mx.com.emv.menotes.databinding.AddNoteFragmentBinding
 import mx.com.emv.menotes.di.Injector
+import mx.com.emv.menotes.presentation.common.MeNotesBaseFragment
 import mx.com.emv.menotes.presentation.ext.createFactory
 
 private const val NOTE_ID = "noteId"
 
-class AddNoteFragment : Fragment() {
+class AddNoteFragment : MeNotesBaseFragment() {
     private var noteId: Int = 0
     private var _binding: AddNoteFragmentBinding? = null
     private val binding get() = _binding!!
@@ -44,14 +45,13 @@ class AddNoteFragment : Fragment() {
         setUpToolBar()
         setUpObservers()
         if (noteId != 0){ getNote(noteId) }
-        //noteId?.let { getNote(it) }
     }
 
     private fun getNote(id: Int) {
         viewModel.getNote(id)
     }
 
-    private fun setUpToolBar() {
+    override fun setUpToolBar() {
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         binding.toolbar.title = resources.getString(R.string.details_note_label)
 
@@ -60,7 +60,7 @@ class AddNoteFragment : Fragment() {
         }
     }
 
-    private fun setUpObservers() {
+    override fun setUpObservers() {
         viewModel.uiState.observe(viewLifecycleOwner){
             when(it){
                 is AddNoteUIState.Loading -> {
@@ -83,26 +83,6 @@ class AddNoteFragment : Fragment() {
     private fun updateUI(note: Note) {
         binding.inputTitle.setText(note.title)
         binding.inputDesc.setText(note.description)
-    }
-
-    private fun showLoader(b: Boolean) {
-        binding.progressBar.visibility = if(b) View.VISIBLE else View.GONE
-    }
-
-    private fun showDialogError(error: String) {
-        val alertDialog: AlertDialog? = activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.apply {
-                setPositiveButton("OK") { dialog, id ->
-                    // User clicked OK button
-                }
-            }
-            builder.setTitle("Mensaje")
-            builder.setMessage(error)
-            // Create the AlertDialog
-            builder.create()
-        }
-        alertDialog?.show()
     }
 
     private fun back(){
