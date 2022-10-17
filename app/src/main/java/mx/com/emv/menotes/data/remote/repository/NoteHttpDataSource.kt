@@ -2,7 +2,7 @@ package mx.com.emv.menotes.data.remote.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import mx.com.emv.menotes.data.Note
+import mx.com.emv.menotes.domain.model.Note
 import mx.com.emv.menotes.data.remote.service.NotesApiClient
 
 class NoteHttpDataSource(

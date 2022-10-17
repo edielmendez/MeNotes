@@ -7,8 +7,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mx.com.emv.menotes.data.remote.repository.NoteRepository
+import mx.com.emv.menotes.domain.usecase.NoteUseCases
 
-class NotesViewModel(private val repository: NoteRepository): ViewModel() {
+class NotesViewModel(private val noteUseCases: NoteUseCases): ViewModel() {
     private val _uiState = MutableLiveData<NotesUIState>()
     val uiState: LiveData<NotesUIState> = _uiState
 
@@ -19,7 +20,7 @@ class NotesViewModel(private val repository: NoteRepository): ViewModel() {
     private fun fetchNotes(){
         viewModelScope.launch {
             _uiState.value = NotesUIState.Loading(true)
-            val result = repository.getAll()
+            val result = noteUseCases.getNotes()
             delay(3000)
             _uiState.value = NotesUIState.Loading(false)
             result.onSuccess {

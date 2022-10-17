@@ -1,8 +1,6 @@
 package mx.com.emv.menotes.data
 
-import android.content.res.Resources
-import mx.com.emv.menotes.R
-import mx.com.emv.menotes.data.Note
+import mx.com.emv.menotes.domain.model.Note
 
 object MockData {
     val fakeNotes = listOf(

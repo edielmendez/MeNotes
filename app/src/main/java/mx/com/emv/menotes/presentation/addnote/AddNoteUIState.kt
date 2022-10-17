@@ -1,7 +1,6 @@
 package mx.com.emv.menotes.presentation.addnote
 
-import mx.com.emv.menotes.data.Note
-import mx.com.emv.menotes.presentation.notes.NotesUIState
+import mx.com.emv.menotes.domain.model.Note
 
 sealed class AddNoteUIState{
     data class Loading(val value: Boolean): AddNoteUIState()

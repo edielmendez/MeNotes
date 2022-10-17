@@ -1,4 +1,4 @@
-package mx.com.emv.menotes.data
+package mx.com.emv.menotes.domain.model
 
 data class Note(
     val id: Int = 0,

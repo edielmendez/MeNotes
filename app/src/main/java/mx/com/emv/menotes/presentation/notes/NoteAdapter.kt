@@ -1,10 +1,9 @@
 package mx.com.emv.menotes.presentation.notes
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import mx.com.emv.menotes.data.Note
+import mx.com.emv.menotes.domain.model.Note
 import mx.com.emv.menotes.databinding.NoteItemBinding
 
 class NoteAdapter(

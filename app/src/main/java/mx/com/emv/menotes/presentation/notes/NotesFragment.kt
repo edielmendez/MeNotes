@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import mx.com.emv.menotes.R
-import mx.com.emv.menotes.data.Note
+import mx.com.emv.menotes.domain.model.Note
 import mx.com.emv.menotes.databinding.NotesFragmentBinding
 import mx.com.emv.menotes.di.Injector
 import mx.com.emv.menotes.presentation.addnote.AddNoteFragment
@@ -20,7 +20,7 @@ class NotesFragment : MeNotesBaseFragment() {
     private val binding get() = _binding!!
     //private val viewModel: NotesViewModel by viewModels()
     private val viewModel by viewModels<NotesViewModel> {
-        NotesViewModel( Injector.provideDataSource() ).createFactory()
+        NotesViewModel( Injector.provideUseCases() ).createFactory()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
